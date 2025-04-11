@@ -33,7 +33,11 @@ function generateRandomNumbersArray(n) {
 const countdown = document.getElementById("countdown");
 const instructions = document.getElementById("instructions");
 const numbersList = document.getElementById("numbers-list");
+const inputGroup = document.getElementById("input-group");
+const inputs = inputGroup.querySelectorAll("input");
+const message = document.getElementById("message");
 const answersForm = document.getElementById("answers-form");
+console.log(inputs);
 
 // generate 5 random numbers
 const randomNumbers = generateRandomNumbersArray(5);
@@ -67,4 +71,24 @@ setTimeout(() => {
   answersForm.classList.remove("d-none");
   countdown.classList.add("d-none");
   instructions.classList.add("d-none");
-}, 1000 * 30);
+}, 1000);
+
+// event listener that gets input values and compare user [inputValues] with [randomNumbers]
+answersForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const inputValues = Array.from(inputs).map((inputs) =>
+    parseInt(inputs.value)
+  );
+  console.log(inputValues);
+  const correctValues = [];
+  for (let i = 0; i < inputValues.length; i++) {
+    currentValue = inputValues[i];
+    if (randomNumbers.includes(currentValue)) {
+      correctValues.push(currentValue);
+    }
+  }
+  if (randomNumbers > correctValues)
+    message.textContent = `Hai sbagliato. Ti sei ricordato solo questi numeri ${correctValues}`;
+  else
+    message.textContent = `Congratulazioni! I numeri sono corretti! ${correctValues}`;
+});
