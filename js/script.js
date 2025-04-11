@@ -14,6 +14,7 @@
 //
 
 // TODO: handle duplicate numbers in array gen
+// TODO: handle input errors
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -58,20 +59,20 @@ for (let i = 0; i < randomNumbers.length; i++) {
 // handle countdown and timeout
 let countdownSeconds = 30 * 1000;
 let countdownIntervalId;
-countdownIntervalId = setInterval(handlecountdown, 1000);
-
 function handlecountdown() {
   countdown.textContent = countdownSeconds / 1000;
   countdownSeconds -= 1000;
   if (countdownSeconds == 0) clearInterval(countdownIntervalId);
 }
+countdownIntervalId = setInterval(handlecountdown, 1000);
 
+// set timeout to handle the display of DOM elements
 setTimeout(() => {
   numbersList.classList.add("d-none");
   answersForm.classList.remove("d-none");
   countdown.classList.add("d-none");
   instructions.classList.add("d-none");
-}, 1000);
+}, 1000 * 30);
 
 // event listener that gets input values and compare user [inputValues] with [randomNumbers]
 answersForm.addEventListener("submit", (event) => {
@@ -80,13 +81,19 @@ answersForm.addEventListener("submit", (event) => {
     parseInt(inputs.value)
   );
   console.log(inputValues);
+
+  // put correct values in array
   const correctValues = [];
+
+  // cycle the input array to check if [inputValues] == [randomNumbers], if so, push value in [correctValues]
   for (let i = 0; i < inputValues.length; i++) {
     currentValue = inputValues[i];
     if (randomNumbers.includes(currentValue)) {
       correctValues.push(currentValue);
     }
   }
+
+  // comunicate to user if he won/lost and the [correctValues]
   if (randomNumbers > correctValues)
     message.textContent = `Hai sbagliato. Ti sei ricordato solo questi numeri ${correctValues}`;
   else
