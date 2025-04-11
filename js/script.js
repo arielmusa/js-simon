@@ -31,6 +31,7 @@ function generateRandomNumbersArray(n) {
 }
 // get DOM elements
 const countdown = document.getElementById("countdown");
+const instructions = document.getElementById("instructions");
 const numbersList = document.getElementById("numbers-list");
 const answersForm = document.getElementById("answers-form");
 
@@ -49,3 +50,21 @@ for (let i = 0; i < randomNumbers.length; i++) {
   numbersList.appendChild(li);
   console.log(li);
 }
+
+// handle countdown and timeout
+let countdownSeconds = 30 * 1000;
+let countdownIntervalId;
+countdownIntervalId = setInterval(handlecountdown, 1000);
+
+function handlecountdown() {
+  countdown.textContent = countdownSeconds / 1000;
+  countdownSeconds -= 1000;
+  if (countdownSeconds == 0) clearInterval(countdownIntervalId);
+}
+
+setTimeout(() => {
+  numbersList.classList.add("d-none");
+  answersForm.classList.remove("d-none");
+  countdown.classList.add("d-none");
+  instructions.classList.add("d-none");
+}, 1000 * 30);
