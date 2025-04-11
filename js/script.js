@@ -12,7 +12,24 @@
 // poi necessito di una funzione per verificare se gli input sono corretti e indico quali sono.
 // gestisco anche gli errori negli input, come valori duplicati, assenti o NaN.
 //
-
+function generateRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+/**
+ * generate random numbers
+ * @param {Integer} n how many numbers you need
+ * @returns array of generated numbers
+ */
+function generateRandomNumbersArray(n) {
+  const numbers = [];
+  for (let i = 0; i < n; i++) {
+    numbers.push(generateRandomNumber(1, 50));
+  }
+  return numbers;
+}
 const countdown = document.getElementById("countdown");
 const numbersList = document.getElementById("numbers-list");
 const answersForm = document.getElementById("answers-form");
+const randomNumbers = generateRandomNumbersArray(5);
+
+console.log(randomNumbers);
